@@ -1,6 +1,3 @@
-/* ============================================ */
-/* SECURITY PROTECTION */
-/* ============================================ */
 
 // Prevent right-click
 document.addEventListener('contextmenu', function (e) {
