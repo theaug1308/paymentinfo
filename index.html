@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Information - theaug</title>
+    <meta name="description" content="Premium payment information portal for theaug">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+            <polyline points="22 4 12 14.01 9 11.01" />
+        </svg>
+        <span id="toast-text">Copied to clipboard!</span>
+    </div>
+
+    <div class="container mx-auto px-4 py-12 max-w-3xl">
+        <!-- Discord Profile Header -->
+        <header class="text-center mb-16 fade-in">
+            <div class="flex justify-center mb-8">
+                <div class="discord-profile">
+                    <div class="discord-icon">
+                        <svg width="28" height="28" viewBox="0 0 71 55" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M60.1045 4.8978C55.5792 2.8214 50.7265 1.2916 45.6527 0.41542C45.5603 0.39851 45.468 0.440769 45.4204 0.525289C44.7963 1.6353 44.105 3.0834 43.6209 4.2216C38.1637 3.4046 32.7345 3.4046 27.3892 4.2216C26.905 3.0581 26.1886 1.6353 25.5617 0.525289C25.5141 0.443589 25.4218 0.40133 25.3294 0.41542C20.2584 1.2888 15.4057 2.8186 10.8776 4.8978C10.8384 4.9147 10.8048 4.9429 10.7825 4.9795C1.57795 18.7309 -0.943561 32.1443 0.293408 45.3914C0.299005 45.4562 0.335386 45.5182 0.385761 45.5576C6.45866 50.0174 12.3413 52.7249 18.1147 54.5195C18.2071 54.5477 18.305 54.5139 18.3638 54.4378C19.7295 52.5728 20.9469 50.6063 21.9907 48.5383C22.0523 48.4172 21.9935 48.2735 21.8676 48.2256C19.9366 47.4931 18.0979 46.6 16.3292 45.5858C16.1893 45.5041 16.1781 45.304 16.3068 45.2082C16.679 44.9293 17.0513 44.6391 17.4067 44.3461C17.471 44.2926 17.5606 44.2813 17.6362 44.3151C29.2558 49.6202 41.8354 49.6202 53.3179 44.3151C53.3935 44.2785 53.4831 44.2898 53.5502 44.3433C53.9057 44.6363 54.2779 44.9293 54.6529 45.2082C54.7816 45.304 54.7732 45.5041 54.6333 45.5858C52.8646 46.6197 51.0259 47.4931 49.0921 48.2228C48.9662 48.2707 48.9102 48.4172 48.9718 48.5383C50.038 50.6034 51.2554 52.5699 52.5959 54.435C52.6519 54.5139 52.7526 54.5477 52.845 54.5195C58.6464 52.7249 64.529 50.0174 70.6019 45.5576C70.6551 45.5182 70.6887 45.459 70.6943 45.3942C72.1747 30.0791 68.2147 16.7757 60.1968 4.9823C60.1772 4.9429 60.1437 4.9147 60.1045 4.8978ZM23.7259 37.3253C20.2276 37.3253 17.3451 34.1136 17.3451 30.1693C17.3451 26.225 20.1717 23.0133 23.7259 23.0133C27.308 23.0133 30.1626 26.2532 30.1066 30.1693C30.1066 34.1136 27.28 37.3253 23.7259 37.3253ZM47.3178 37.3253C43.8196 37.3253 40.9371 34.1136 40.9371 30.1693C40.9371 26.225 43.7636 23.0133 47.3178 23.0133C50.9 23.0133 53.7545 26.2532 53.6986 30.1693C53.6986 34.1136 50.9 37.3253 47.3178 37.3253Z"
+                                fill="white" />
+                        </svg>
+                    </div>
+                    <div class="text-left">
+                        <p class="text-sm text-gray-400 font-medium">Discord</p>
+                        <p class="text-xl font-bold text-white">theaug</p>
+                    </div>
+                </div>
+            </div>
+            <h1 class="gradient-text text-4xl md:text-5xl font-bold mb-3">
+                Payment Methods
+            </h1>
+            <p class="text-base text-gray-400 font-medium">
+                Click any method to reveal and copy instantly
+            </p>
+        </header>
+
+        <!-- Payment Methods Stack -->
+        <div class="space-y-4">
+
+            <!-- Ethereum (ERC20) -->
+            <div class="glass-card fade-in item-1" id="btn-ethereum"
+                onclick="handlePaymentClick('ethereum', '0x9e468039318F84FBea672DA453Bd14b395923689', 'Ethereum (ERC20)')">
+                <div class="card-header">
+                    <div class="card-info">
+                        <div class="logo-container"
+                            style="background: linear-gradient(135deg, #627eea 0%, #8a92b2 100%);">
+                            <svg width="36" height="36" viewBox="0 0 256 417" xmlns="http://www.w3.org/2000/svg">
+                                <path fill="#fff" d="M127.961 0l-2.795 9.5v275.668l2.795 2.79 127.962-75.638z" />
+                                <path fill="#fff" fill-opacity="0.6" d="M127.962 0L0 212.32l127.962 75.639V154.158z" />
+                                <path fill="#fff" d="M127.961 312.187l-1.575 1.92v98.199l1.575 4.6L256 236.587z" />
+                                <path fill="#fff" fill-opacity="0.6" d="M127.962 416.905v-104.72L0 236.585z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="card-title">Ethereum</h3>
+                            <p class="card-subtitle">ERC20 Network</p>
+                        </div>
+                    </div>
+                    <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <polyline points="9 18 15 12 9 6" />
+                    </svg>
+                </div>
+                <div class="payment-address" id="addr-ethereum">
+                    <div class="address-container">
+                        <p class="address-text text-purple-300">0x9e468039318F84FBea672DA453Bd14b395923689</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Binance Smart Chain (BEP20) -->
+            <div class="glass-card fade-in item-2" id="btn-bsc"
+                onclick="handlePaymentClick('bsc', '0x9e468039318F84FBea672DA453Bd14b395923689', 'Binance Smart Chain (BEP20)')">
+                <div class="card-header">
+                    <div class="card-info">
+                        <div class="logo-container"
+                            style="background: linear-gradient(135deg, #f3ba2f 0%, #f0b90b 100%);">
+                            <svg width="36" height="36" viewBox="0 0 126.61 126.61" xmlns="http://www.w3.org/2000/svg">
+                                <g fill="#fff">
+                                    <path d="M38.73 53.2l24.59-24.58 24.6 24.6 14.3-14.31L63.32 0 24.43 38.89z" />
+                                    <path d="M0 63.31l14.3-14.3 14.31 14.3-14.31 14.3z" />
+                                    <path d="M38.73 73.41l24.59 24.59 24.6-24.6 14.31 14.29-38.9 38.91-38.91-38.88z" />
+                                    <path d="M98 63.31l14.3-14.3 14.31 14.3-14.31 14.3z" />
+                                    <path
+                                        d="M77.83 63.3L63.32 48.78 52.59 59.51l-1.246 1.25-2.268 2.27 14.51 14.5 14.51-14.5z" />
+                                </g>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="card-title">Binance Smart Chain</h3>
+                            <p class="card-subtitle">BEP20 Network</p>
+                        </div>
+                    </div>
+                    <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <polyline points="9 18 15 12 9 6" />
+                    </svg>
+                </div>
+                <div class="payment-address" id="addr-bsc">
+                    <div class="address-container">
+                        <p class="address-text text-yellow-300">0x9e468039318F84FBea672DA453Bd14b395923689</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TRON (TRC20) -->
+            <div class="glass-card fade-in item-3" id="btn-tron"
+                onclick="handlePaymentClick('tron', 'TXzo7CXm6yCsxMZkEQEMD7daE8PBDE8Gjq', 'TRON (TRC20)')">
+                <div class="card-header">
+                    <div class="card-info">
+                        <div class="logo-container"
+                            style="background: linear-gradient(135deg, #eb0029 0%, #c4001d 100%);">
+                            <svg width="36" height="36" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                                <path fill="#fff"
+                                    d="M37.5 180L10 20l100 0 80 60-50 100-102.5 0zm60-140L30 60l70 80 60-40-62.5-60z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="card-title">TRON</h3>
+                            <p class="card-subtitle">TRC20 Network</p>
+                        </div>
+                    </div>
+                    <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <polyline points="9 18 15 12 9 6" />
+                    </svg>
+                </div>
+                <div class="payment-address" id="addr-tron">
+                    <div class="address-container">
+                        <p class="address-text text-red-300">TXzo7CXm6yCsxMZkEQEMD7daE8PBDE8Gjq</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Litecoin -->
+            <div class="glass-card fade-in item-4" id="btn-litecoin"
+                onclick="handlePaymentClick('litecoin', 'LN2Zg9LNUmgaa2UcyHUkv8iyzyP5Qjq5Ej', 'Litecoin')">
+                <div class="card-header">
+                    <div class="card-info">
+                        <div class="logo-container"
+                            style="background: linear-gradient(135deg, #345d9d 0%, #2c4f84 100%);">
+                            <svg width="36" height="36" viewBox="0 0 82 82" xmlns="http://www.w3.org/2000/svg">
+                                <circle fill="#fff" cx="41" cy="41" r="36" />
+                                <path fill="#345d9d"
+                                    d="M41 5a36 36 0 1 0 0 72 36 36 0 0 0 0-72zm-9 54l4-16-6 2 2-7 6-2 6-22h11l-5 19 6-2-2 7-6 2-3 11h20l-3 8H32z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="card-title">Litecoin</h3>
+                            <p class="card-subtitle">LTC Network</p>
+                        </div>
+                    </div>
+                    <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <polyline points="9 18 15 12 9 6" />
+                    </svg>
+                </div>
+                <div class="payment-address" id="addr-litecoin">
+                    <div class="address-container">
+                        <p class="address-text text-blue-300">LN2Zg9LNUmgaa2UcyHUkv8iyzyP5Qjq5Ej</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Momo -->
+            <div class="glass-card fade-in item-5" id="btn-momo"
+                onclick="handlePaymentClick('momo', '0362384372', 'Momo')">
+                <div class="card-header">
+                    <div class="card-info">
+                        <div class="logo-container" style="background: #fff; padding: 8px;">
+                            <img src="https://cdn.haitrieu.com/wp-content/uploads/2022/10/Logo-MoMo-Square.png"
+                                alt="Momo" width="48" height="48" style="border-radius: 8px;">
+                        </div>
+                        <div>
+                            <h3 class="card-title">Momo</h3>
+                            <p class="card-subtitle">Vũ Thái Sơn</p>
+                        </div>
+                    </div>
+                    <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <polyline points="9 18 15 12 9 6" />
+                    </svg>
+                </div>
+                <div class="payment-address" id="addr-momo">
+                    <div class="address-container">
+                        <p class="address-text text-pink-300">0362384372</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PayPal -->
+            <div class="glass-card fade-in item-6" id="btn-paypal"
+                onclick="handlePaymentClick('paypal', 'vuthaison672@gmail.com', 'PayPal')">
+                <div class="card-header">
+                    <div class="card-info">
+                        <div class="logo-container" style="background: #fff; padding: 8px;">
+                            <img src="https://images.icon-icons.com/2429/PNG/512/paypal_logo_icon_147252.png"
+                                alt="PayPal" width="48" height="48" style="border-radius: 8px;">
+                        </div>
+                        <div>
+                            <h3 class="card-title">PayPal</h3>
+                            <p class="card-subtitle">International Payments</p>
+                        </div>
+                    </div>
+                    <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <polyline points="9 18 15 12 9 6" />
+                    </svg>
+                </div>
+                <div class="payment-address" id="addr-paypal">
+                    <div class="address-container">
+                        <p class="address-text text-blue-300">vuthaison672@gmail.com</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Techcombank -->
+            <div class="glass-card fade-in item-7" id="btn-techcombank"
+                onclick="handlePaymentClick('techcombank', 'theaug', 'Techcombank')">
+                <div class="card-header">
+                    <div class="card-info">
+                        <div class="logo-container" style="background: #fff; padding: 8px;">
+                            <img src="https://plus.vtc.edu.vn/wp-content/uploads/2020/09/techcombank.png"
+                                alt="Techcombank" width="48" height="48" style="border-radius: 8px;">
+                        </div>
+                        <div>
+                            <h3 class="card-title">Techcombank</h3>
+                            <p class="card-subtitle">Vietnam Banking</p>
+                        </div>
+                    </div>
+                    <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <polyline points="9 18 15 12 9 6" />
+                    </svg>
+                </div>
+                <div class="payment-address" id="addr-techcombank">
+                    <div class="address-container">
+                        <p class="address-text text-green-300">theaug</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Footer -->
+        <footer class="text-center mt-16 fade-in" style="animation-delay: 0.5s; opacity: 0;">
+            <p class="text-gray-500 text-sm font-medium">
+                © 2025 theaug • All payment information is verified and secure
+            </p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
