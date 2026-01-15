@@ -1,6 +1,3 @@
-/* ============================================ */
-/* GLOBAL STYLES & RESET */
-/* ============================================ */
 * {
     margin: 0;
     padding: 0;
@@ -16,9 +13,6 @@ body {
     color: #fff;
 }
 
-/* ============================================ */
-/* WEBGL FLUID SIMULATION CANVAS */
-/* ============================================ */
 #fluid-canvas {
     position: fixed;
     top: 0;
@@ -28,10 +22,6 @@ body {
     z-index: 0;
     background: #000000;
 }
-
-/* ============================================ */
-/* TRANSPARENT CONTENT OVERLAY */
-/* ============================================ */
 .content-overlay {
     position: relative;
     z-index: 1;
@@ -42,9 +32,6 @@ body {
     pointer-events: auto;
 }
 
-/* ============================================ */
-/* DEEP GLASSMORPHISM CARD WITH NEON BORDERS */
-/* ============================================ */
 .glass-card {
     background: rgba(255, 255, 255, 0.02);
     backdrop-filter: blur(40px) saturate(200%);
@@ -62,7 +49,6 @@ body {
     padding: 24px;
 }
 
-/* Neon glow effect on top edge */
 .glass-card::before {
     content: '';
     position: absolute;
@@ -83,7 +69,6 @@ body {
     opacity: 1;
 }
 
-/* Hover state with neon border */
 .glass-card:hover {
     transform: translateY(-4px) scale(1.02);
     border-color: rgba(99, 102, 241, 0.5);
@@ -94,7 +79,6 @@ body {
         inset 0 1px 0 0 rgba(255, 255, 255, 0.15);
 }
 
-/* Expanded state with stronger neon glow */
 .glass-card.expanded {
     background: rgba(255, 255, 255, 0.04);
     border-color: rgba(99, 102, 241, 0.6);
@@ -114,9 +98,6 @@ body {
             transparent);
 }
 
-/* ============================================ */
-/* CARD HEADER & INFO */
-/* ============================================ */
 .card-header {
     display: flex;
     align-items: center;
@@ -143,9 +124,6 @@ body {
     font-weight: 500;
 }
 
-/* ============================================ */
-/* LOGO CONTAINER WITH ENHANCED GLOW */
-/* ============================================ */
 .logo-container {
     width: 64px;
     height: 64px;
@@ -164,9 +142,6 @@ body {
     filter: drop-shadow(0 0 30px rgba(99, 102, 241, 0.6));
 }
 
-/* ============================================ */
-/* CHEVRON ANIMATION */
-/* ============================================ */
 .chevron {
     transition: transform 0.3s ease, stroke 0.3s ease;
     stroke: rgba(255, 255, 255, 0.4);
@@ -182,9 +157,6 @@ body {
     stroke: rgba(139, 92, 246, 1);
 }
 
-/* ============================================ */
-/* ADDRESS REVEAL ANIMATION */
-/* ============================================ */
 .payment-address {
     max-height: 0;
     opacity: 0;
@@ -198,9 +170,6 @@ body {
     margin-top: 20px;
 }
 
-/* ============================================ */
-/* ADDRESS CONTAINER WITH SHIMMER */
-/* ============================================ */
 .address-container {
     background: rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(10px);
@@ -244,9 +213,6 @@ body {
     z-index: 1;
 }
 
-/* ============================================ */
-/* PREMIUM TOAST NOTIFICATION */
-/* ============================================ */
 .toast {
     position: fixed;
     top: 32px;
@@ -274,9 +240,6 @@ body {
     transform: translateX(0) scale(1);
 }
 
-/* ============================================ */
-/* DISCORD PROFILE SECTION */
-/* ============================================ */
 .discord-profile {
     background: rgba(88, 101, 242, 0.15);
     backdrop-filter: blur(30px);
@@ -322,9 +285,6 @@ body {
     box-shadow: 0 8px 24px rgba(88, 101, 242, 0.5);
 }
 
-/* ============================================ */
-/* GRADIENT TEXT */
-/* ============================================ */
 .gradient-text {
     background: linear-gradient(135deg, #fff 0%, #a78bfa 100%);
     -webkit-background-clip: text;
@@ -333,9 +293,6 @@ body {
     filter: drop-shadow(0 0 30px rgba(167, 139, 250, 0.3));
 }
 
-/* ============================================ */
-/* FADE IN ANIMATIONS */
-/* ============================================ */
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -352,7 +309,6 @@ body {
     animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
-/* Stagger animation delays */
 .item-1 {
     animation-delay: 0.1s;
     opacity: 0;
@@ -388,9 +344,6 @@ body {
     opacity: 0;
 }
 
-/* ============================================ */
-/* RESPONSIVE ADJUSTMENTS */
-/* ============================================ */
 @media (max-width: 640px) {
     .toast {
         top: 16px;
@@ -419,4 +372,5 @@ body {
     .glass-card {
         padding: 20px;
     }
+
 }
