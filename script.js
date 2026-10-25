@@ -1,128 +1,77 @@
-document.addEventListener('contextmenu', function (e) {
-    e.preventDefault();
-    return false;
-});
+(() => {
+  const rows = [...document.querySelectorAll('.row')];
+  const status = document.getElementById('status');
 
-document.addEventListener('keydown', function (e) {
-    if (e.key === 'F12') {
-        e.preventDefault();
-        return false;
-    }
+  rows.forEach((row) => {
+    const a = row.dataset.address;
+    row.querySelector('.short').textContent = a.slice(0, 6) + '…' + a.slice(-4);
+    // One continuous string: first 6 and last 4 characters highlighted
+    const box = row.querySelector('.addr');
+    const head = document.createElement('b'), tail = document.createElement('b');
+    head.textContent = a.slice(0, 6);
+    tail.textContent = a.slice(-4);
+    box.append(head, a.slice(6, -4), tail);
+    const copy = row.querySelector('.copy');
+    copy.dataset.copy = a;
+    copy.dataset.name = 'Address';
+  });
 
-    if (e.ctrlKey && e.shiftKey && e.key === 'I') {
-        e.preventDefault();
-        return false;
-    }
+  function setOpen(row, open) {
+    row.classList.toggle('open', open);
+    row.querySelector('h2 button').setAttribute('aria-expanded', open);
+    row.querySelector('.panel').hidden = !open;
+  }
 
-    if (e.ctrlKey && e.shiftKey && e.key === 'J') {
-        e.preventDefault();
-        return false;
-    }
+  function show(id) {
+    rows.forEach((r) => setOpen(r, r.id === id));
+    history.replaceState(null, '', '#' + id);
+  }
 
-    if (e.ctrlKey && e.shiftKey && e.key === 'C') {
-        e.preventDefault();
-        return false;
-    }
-
-    if (e.ctrlKey && e.key === 'u') {
-        e.preventDefault();
-        return false;
-    }
-});
-
-(function () {
-    const devtools = {
-        isOpen: false,
-        orientation: null
-    };
-
-    const threshold = 160;
-
-    const emitEvent = (isOpen, orientation) => {
-        if (devtools.isOpen !== isOpen || devtools.orientation !== orientation) {
-            devtools.isOpen = isOpen;
-            devtools.orientation = orientation;
-
-            if (isOpen) {
-                // Close the page when DevTools is detected
-                window.location.href = 'about:blank';
-                window.close();
-            }
-        }
-    };
-
-    setInterval(() => {
-        const widthThreshold = window.outerWidth - window.innerWidth > threshold;
-        const heightThreshold = window.outerHeight - window.innerHeight > threshold;
-        const orientation = widthThreshold ? 'vertical' : 'horizontal';
-
-        if (!(heightThreshold && widthThreshold) && ((window.Firebug && window.Firebug.chrome && window.Firebug.chrome.isInitialized) || widthThreshold || heightThreshold)) {
-            emitEvent(true, orientation);
-        } else {
-            emitEvent(false, null);
-        }
-    }, 500);
-
-    const element = new Image();
-    Object.defineProperty(element, 'id', {
-        get: function () {
-            emitEvent(true, null);
-            throw new Error('DevTools detected');
-        }
+  rows.forEach((row) => {
+    row.querySelector('h2 button').addEventListener('click', () => {
+      if (row.classList.contains('open')) {
+        setOpen(row, false);
+        history.replaceState(null, '', location.pathname + location.search);
+      } else show(row.id);
     });
+  });
 
-    setInterval(() => {
-        console.log(element);
-        console.clear();
-    }, 1000);
+  const hash = location.hash.slice(1);
+  show(rows.some((r) => r.id === hash) ? hash : rows[0].id);
+
+  async function copyText(text) {
+    try { await navigator.clipboard.writeText(text); return true; }
+    catch {
+      const ta = document.createElement('textarea');
+      ta.value = text; ta.setAttribute('readonly', '');
+      ta.style.cssText = 'position:fixed;opacity:0;top:0;left:0';
+      document.body.appendChild(ta); ta.select();
+      let ok = false;
+      try { ok = document.execCommand('copy'); } catch {}
+      ta.remove();
+      return ok;
+    }
+  }
+
+  document.querySelectorAll('[data-copy]').forEach((btn) => {
+    const label = btn.textContent;
+    let timer;
+    btn.addEventListener('click', async () => {
+      const ok = await copyText(btn.dataset.copy);
+      clearTimeout(timer);
+      btn.classList.toggle('is-error', !ok);
+      btn.textContent = ok ? 'Copied' : 'Couldn’t copy';
+      status.textContent = ok
+        ? `${btn.dataset.name} copied`
+        : 'Couldn’t copy. Select the text and copy it by hand.';
+      if (!ok) {
+        const addr = btn.closest('.row')?.querySelector('.addr');
+        if (addr) getSelection().selectAllChildren(addr);
+      }
+      timer = setTimeout(() => {
+        btn.textContent = label;
+        btn.classList.remove('is-error');
+      }, 2000);
+    });
+  });
 })();
-let currentExpanded = null;
-
-function handlePaymentClick(id, address, name) {
-    const btn = document.getElementById('btn-' + id);
-    const addrDiv = document.getElementById('addr-' + id);
-
-    // If clicking the same button, collapse it
-    if (currentExpanded === id) {
-        addrDiv.classList.remove('show');
-        btn.classList.remove('expanded');
-        currentExpanded = null;
-        return;
-    }
-
-    // Collapse previously expanded
-    if (currentExpanded) {
-        const prevAddr = document.getElementById('addr-' + currentExpanded);
-        const prevBtn = document.getElementById('btn-' + currentExpanded);
-        prevAddr.classList.remove('show');
-        prevBtn.classList.remove('expanded');
-    }
-
-    addrDiv.classList.add('show');
-    btn.classList.add('expanded');
-    currentExpanded = id;
-
-    copyToClipboard(address, name);
-}
-
-function copyToClipboard(text, name) {
-    navigator.clipboard.writeText(text).then(() => {
-        showToast(`${name} copied!`);
-    }).catch(err => {
-        console.error('Failed to copy:', err);
-        showToast('Failed to copy. Please try again.');
-    });
-}
-
-function showToast(message) {
-    const toast = document.getElementById('toast');
-    const toastText = document.getElementById('toast-text');
-
-    toastText.textContent = message;
-    toast.classList.add('show');
-
-    setTimeout(() => {
-        toast.classList.remove('show');
-    }, 3000);
-}
-
